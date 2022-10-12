@@ -8,12 +8,11 @@ try:
 except Exception as e:
     print(e)
 
-left = None
-right = None
+
 
 def run():
-    global left,right
     pygame.init()
+    global left,right
 
     #Initialise the screen
     WIDTH = 800
@@ -29,6 +28,8 @@ def run():
     #Initialise Players
     left = Paddle("left")
     right = Paddle("right")
+
+
 
     #Initialise ball
     ball = Ball()
@@ -77,7 +78,7 @@ def run():
         screen.blit(background,ball.rect,ball.rect)
         screen.blit(background,left.rect,left.rect)
         screen.blit(background,right.rect,right.rect)
-        ball_sprite.update()
+        ball_sprite.update(left,right)
         paddle_sprites.update()
         ball_sprite.draw(screen)
         paddle_sprites.draw(screen)
