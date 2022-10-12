@@ -8,8 +8,11 @@ try:
 except Exception as e:
     print(e)
 
+left = None
+right = None
 
 def run():
+    global left,right
     pygame.init()
 
     #Initialise the screen
@@ -55,18 +58,26 @@ def run():
                     left.move_up()
                 if event.key == pygame.K_s:
                     left.move_down()
+                if event.key == pygame.K_UP:
+                    right.move_up()
+                if event.key == pygame.K_DOWN:
+                    right.move_down()
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
                     left.position = (0,0)
                 if event.key == pygame.K_s:
                     left.position = (0,0)
+                if event.key == pygame.K_UP:
+                    right.position = (0,0)
+                if event.key == pygame.K_DOWN:
+                    right.position = (0,0)
 
 
         #update screen
         screen.blit(background,ball.rect,ball.rect)
         screen.blit(background,left.rect,left.rect)
         screen.blit(background,right.rect,right.rect)
-        #ball_sprite.update()
+        ball_sprite.update()
         paddle_sprites.update()
         ball_sprite.draw(screen)
         paddle_sprites.draw(screen)
