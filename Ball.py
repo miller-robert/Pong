@@ -1,4 +1,4 @@
-import pygame,math,random
+import pygame,math,random,sys
 from utils.Utils import load_image
 
 
@@ -12,7 +12,7 @@ class Ball(pygame.sprite.Sprite):
         self.rect.x = (self.screen.get_width()/2)
         self.rect.y = (self.screen.get_height()/2)
         self.area = self.screen.get_rect()
-        self.speed = 4
+        self.speed = 6
         self.vector = (random.random(),self.speed)
         self.hit = False
 
@@ -44,13 +44,14 @@ class Ball(pygame.sprite.Sprite):
             if top_left and bottom_left:
                 #angle = math.pi - angle
                 self.restart()
-                return "score_right"
+                self.score("right")
 
             #if ball is past the right side
             if top_right and bottom_right:
                 #angle = math.pi - angle
                 self.restart()
-                return "score_left"
+                self.score("left")
+                
         else:
             #ball is still in the bounds of the screen
             
@@ -65,7 +66,7 @@ class Ball(pygame.sprite.Sprite):
                 self.hit = not self.hit
             
         self.vector = (angle,speed)
-            
+        return 0
 
     
 
@@ -75,3 +76,12 @@ class Ball(pygame.sprite.Sprite):
         angle,speed = vector
         dx,dy = (speed*math.cos(angle),speed*math.sin(angle))
         return rect.move(dx,dy)
+
+
+    def score(self,side):
+        from Pong import score        
+
+        if side == "left":
+            score("left")
+        elif side == "right":
+            score("right")
